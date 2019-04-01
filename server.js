@@ -37,7 +37,7 @@ app.get('/login', function(request, response) {
 
 app.post('/api/login', function(request, response) {
 	const username = request.body.username;
-	const password = request.body.password;
+	const password = hashPassword(request.body.password);
 	if (username && password) {
 		connection.query('SELECT * FROM user  WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
             if ( results.length > 0) {
@@ -91,9 +91,9 @@ app.get('/', function(request, response) {
 });
 
 function hashPassword(password, salt){
-    const sum = crypto.createHash('sha256');
-    sum.update(password+salt)
-    return 'sha256$'+sum.digest('hex');
+    const hash = crypto.createHash('sha256');
+    hash.update(password+salt)
+    return 'sha256$'+hash.digest('hex');
 }
 
 app.listen(3000);
