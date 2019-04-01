@@ -93,7 +93,7 @@ app.get('/', function(request, response) {
 function hashPassword(password, salt){
     const hash = crypto.createHash('sha256');
     hash.update(password+salt)
-    return 'sha256$'+hash.digest('hex');
+    return hash.digest('hex');
 }
 
 app.listen(3000);
