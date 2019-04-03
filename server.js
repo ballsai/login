@@ -31,11 +31,11 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
-app.get('/login', function(request, response) {
-	response.sendFile(path.join(__dirname + '/login.html'));
+app.get('/index', function(request, response) {
+	response.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.post('/api/login', function(request, response) {
+app.post('/api/index', function(request, response) {
 	const username = request.body.username;
 	const password = hashPassword(request.body.password);
 	if (username && password) {
@@ -85,7 +85,7 @@ app.get('/', function(request, response) {
 	if (request.session.loggedin) {
 		response.send('Welcome, ' + request.session.username + '!');
 	} else {
-		response.redirect('/login');
+		response.redirect('/index');
 	}
 	response.end();
 });
